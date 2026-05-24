@@ -1,0 +1,285 @@
+Documentação do Projeto Dra. Nicolle Carvalho
+Sistema web para clínica de estética com ASP.NET Core, PostgreSQL, EF Core, DBeaver e Postman
+
+Resumo: o projeto deixou de ser uma API de exemplo com /weatherforecast e passou a ser uma base funcional para a Dra. Nicolle Carvalho, com cadastro de clientes, profissionais, procedimentos e agendamentos salvos no PostgreSQL.
+
+1. Objetivo do Projeto
+A proposta foi iniciar o backend de um sistema web para uma clínica de estética fictícia chamada Dra. Nicolle Carvalho. O projeto atende ao tema do PIM III, pois utiliza C#, desenvolvimento web, modelagem de banco de dados, integração com PostgreSQL e testes de API.
+A proposta do sistema ? permitir que a cl?nica controle seus clientes, profissionais, procedimentos est?ticos e agendamentos.
+2. Ferramentas Utilizadas
+Ferramenta
+Uso no projeto
+.NET SDK
+Compilar e executar o backend ASP.NET Core.
+ASP.NET Core Minimal API
+Criar os endpoints da aplica??o.
+C#
+Linguagem usada no backend.
+Entity Framework Core
+Fazer a comunica??o entre o C# e o banco.
+Npgsql Entity Framework Core PostgreSQL
+Permitir que o EF Core use PostgreSQL.
+PostgreSQL
+Banco de dados principal do projeto.
+DBeaver
+Visualizar o banco, tabelas e registros.
+Postman
+Testar as rotas GET e POST da API.
+
+3. Estrutura Criada no Backend
+O backend est? na pasta: C:\Users\phabl\OneDrive\Desktop\projeto x
+Pasta ou arquivo
+Fun??o
+Program.cs
+Configura a aplica??o, OpenAPI, conex?o com banco e registra as rotas.
+data/AppDbContext.cs
+Representa o banco de dados no C# e configura as tabelas.
+Models/Cliente.cs
+Modelo de dados para clientes da cl?nica.
+Models/Profissional.cs
+Modelo de dados para profissionais da cl?nica.
+Models/Procedimento.cs
+Modelo de dados para procedimentos est?ticos.
+Models/Agendamento.cs
+Modelo que liga cliente, profissional, procedimento e hor?rio.
+Endpoints/ClinicaEndpoints.cs
+Arquivo criado para organizar as rotas da API fora do Program.cs.
+Migrations
+Hist?rico de altera??es usadas para criar e atualizar as tabelas no PostgreSQL.
+
+4. Banco de Dados PostgreSQL
+Foi configurada uma connection string no appsettings.json apontando para o PostgreSQL local.
+Item
+Valor
+Servidor
+localhost
+Porta
+5432
+Banco
+clinica_estetica
+Usu?rio
+postgres
+Ferramenta de visualiza??o
+DBeaver
+
+As tabelas criadas foram:
+* Clientes
+* Profissionais
+* Procedimentos
+* Agendamentos
+* __EFMigrationsHistory
+5. Modelos do Sistema
+Modelo
+Campos principais
+Explica??o
+Cliente
+Id, Nome, Telefone, Email, DataNascimento, Observacoes
+Guarda os dados da pessoa atendida pela cl?nica.
+Profissional
+Id, Nome, Especialidade, Telefone, Ativo
+Guarda a equipe que realiza os procedimentos.
+Procedimento
+Id, Nome, Descricao, Preco, DuracaoMinutos, Ativo
+Guarda os servi?os oferecidos pela cl?nica.
+Agendamento
+Id, DataHora, Status, Observacoes, ClienteId, ProfissionalId, ProcedimentoId
+Registra a reserva de hor?rio vinculada ?s outras tabelas.
+
+6. Dados Iniciais Inseridos
+Foram inseridos dados iniciais para o sistema j? ter informa??es reais de teste.
+Tipo
+Registros criados
+Procedimentos
+Limpeza de Pele; Toxina Botul?nica (Botox); Drenagem Linf?tica; Harmoniza??o Facial.
+Profissionais
+Dra. Ana Beatriz; Dr. Carlos Mendes; Dra. Fernanda Lima.
+Cliente de teste
+Maria Silva.
+Agendamento de teste
+Maria Silva com Dra. Ana Beatriz para Limpeza de Pele em 15/07/2026 ?s 14:00.
+
+7. Rotas da API
+M?todo
+Rota
+O que faz
+GET
+/
+Mostra uma mensagem simples confirmando que a API est? funcionando.
+GET
+/clientes
+Lista todos os clientes cadastrados.
+GET
+/clientes/{id}
+Busca um cliente pelo identificador.
+POST
+/clientes
+Cadastra um novo cliente.
+PUT
+/clientes/{id}
+Atualiza os dados de um cliente.
+DELETE
+/clientes/{id}
+Remove um cliente.
+GET
+/procedimentos
+Lista os procedimentos da cl?nica.
+POST
+/procedimentos
+Cadastra um novo procedimento.
+GET
+/profissionais
+Lista os profissionais da cl?nica.
+POST
+/profissionais
+Cadastra um novo profissional.
+GET
+/agendamentos
+Lista agendamentos com cliente, profissional e procedimento.
+POST
+/agendamentos
+Cria um novo agendamento.
+
+8. Testes Realizados
+Os testes foram feitos no navegador e no Postman.
+1. No navegador, foi testado http://localhost:5063 e apareceu a mensagem da API.
+2. No navegador, foi testado GET /procedimentos e os procedimentos apareceram em JSON.
+3. No navegador, foi testado GET /profissionais e os profissionais apareceram em JSON.
+4. No Postman, foi testado POST /clientes para cadastrar Maria Silva. O retorno foi 201 Created.
+5. No Postman, foi testado POST /agendamentos para criar um agendamento. O retorno foi 201 Created.
+Exemplo de JSON usado para cadastrar cliente:
+{
+  "nome": "Maria Silva",
+  "telefone": "(62) 99999-2222",
+  "email": "maria@email.com",
+  "dataNascimento": "1995-04-12",
+  "observacoes": "Cliente interessada em limpeza de pele."
+}
+Exemplo de JSON usado para criar agendamento:
+{
+  "dataHora": "2026-07-15T14:00:00",
+  "status": "Agendado",
+  "observacoes": "Primeira consulta da cliente.",
+  "clienteId": 1,
+  "profissionalId": 1,
+  "procedimentoId": 1
+}
+9. Problemas Encontrados e Corre??es
+Problema
+Causa
+Corre??o
+Banco n?o aparecia no DBeaver
+Era necess?rio criar/conectar no banco clinica_estetica.
+A conex?o foi configurada no DBeaver com localhost, porta 5432, banco clinica_estetica e usu?rio postgres.
+dotnet-ef n?o existia
+A ferramenta do Entity Framework n?o estava instalada.
+Foi criado um tool manifest e instalado dotnet-ef localmente no projeto.
+Erro ao salvar data do agendamento
+A coluna DataHora estava como timestamp with time zone e o PostgreSQL exigia UTC.
+A coluna foi alterada para timestamp without time zone, mais adequado para hor?rio local de cl?nica.
+Build bloqueado
+A API ainda estava rodando e segurava o arquivo execut?vel.
+O processo foi parado antes de recompilar.
+
+10. Como Rodar o Projeto
+Para iniciar o backend, abrir o PowerShell e executar:
+cd "C:\Users\phabl\OneDrive\Desktop\projeto x"
+dotnet run
+Quando aparecer Now listening on: http://localhost:5063, a API estar? ligada.
+11. Pr?ximos Passos
+* Conectar o formul?rio de agendamento do front-end ao backend.
+* Adicionar campos de nome, telefone e e-mail no formul?rio do site.
+* Fazer o front-end cadastrar o cliente e depois criar o agendamento.
+* Criar uma ?rea administrativa simples para listar clientes e agendamentos.
+* Adicionar indicadores para o PIM, como total de agendamentos e procedimentos mais procurados.
+* Melhorar a acessibilidade do site, incluindo recursos relacionados a LIBRAS e inclus?o digital.
+12. Explica??o Simples do Fluxo
+O fluxo principal do sistema funciona assim:
+6. O usu?rio ou o Postman envia uma requisi??o para a API.
+7. O ASP.NET Core recebe a requisi??o em uma rota, como /clientes ou /agendamentos.
+8. O AppDbContext conversa com o PostgreSQL usando Entity Framework Core.
+9. O PostgreSQL salva ou devolve os dados.
+10. A API retorna uma resposta em JSON.
+Esse fluxo j? foi testado e est? funcionando para clientes, profissionais, procedimentos e agendamentos.
+Atualiza??o do Projeto - Painel Administrativo
+Esta se??o registra a continua??o do desenvolvimento, com a cria??o do painel administrativo da cl?nica e novos indicadores para an?lise de dados.
+13. Painel Administrativo
+Foi criada uma página administrativa para a Dra. Nicolle Carvalho visualizar dados gerais do sistema. Essa página é importante para o PIM porque demonstra uso de indicadores e análise de dados do negócio.
+Arquivo
+Fun??o
+admin.html
+P?gina administrativa com indicadores, pr?ximos agendamentos e clientes cadastrados.
+js/admin.js
+Busca os dados no backend e preenche o painel automaticamente.
+css/style.css
+Recebeu estilos para cards de indicadores e tabelas administrativas.
+Endpoints/ClinicaEndpoints.cs
+Recebeu a rota /indicadores no backend.
+
+14. Indicadores Criados
+O endpoint /indicadores retorna informa??es resumidas do banco de dados PostgreSQL.
+* Total de clientes cadastrados.
+* Total de agendamentos.
+* Total de procedimentos ativos.
+* Total de profissionais ativos.
+* Procedimento mais procurado, calculado pelos agendamentos existentes.
+* Lista dos pr?ximos agendamentos com cliente, procedimento, profissional e status.
+Rota
+M?todo
+Uso
+/indicadores
+GET
+Retorna os n?meros usados no painel administrativo.
+/clientes
+GET
+Lista os clientes para a tabela administrativa.
+/agendamentos
+GET
+Lista todos os agendamentos com dados relacionados.
+
+15. Como Mexer e Testar o Sistema
+Antes de abrir as p?ginas que usam dados reais, o backend precisa estar ligado.
+11. Abra o PowerShell.
+12. Entre na pasta do backend com: cd "C:\Users\phabl\OneDrive\Desktop\projeto x"
+13. Rode: dotnet run
+14. Espere aparecer: Now listening on: http://localhost:5063
+15. Mantenha esse terminal aberto enquanto usa o site.
+16. Teste da Pr?-reserva
+16. Abra o arquivo index.html na pasta do front-end.
+17. Preencha nome, WhatsApp, e-mail, procedimento, profissional, data e hora.
+18. Clique em Solicitar reserva.
+19. Se aparecer mensagem de sucesso, o cliente e o agendamento foram salvos no PostgreSQL.
+20. Confira no DBeaver nas tabelas Clientes e Agendamentos.
+17. Teste da ?rea do Cliente
+21. Abra area-cliente.html.
+22. Digite o e-mail usado na pr?-reserva.
+23. Digite qualquer senha, pois a senha ainda ? demonstrativa nesta vers?o.
+24. Clique em Entrar.
+25. O sistema deve mostrar os agendamentos reais daquele e-mail.
+18. Teste do Painel Administrativo
+26. Abra admin.html.
+27. Confira os cards de total de clientes, total de agendamentos, procedimentos e profissionais.
+28. Confira o procedimento mais procurado.
+29. Confira a tabela de pr?ximos agendamentos.
+30. Confira a tabela de clientes cadastrados.
+19. Testes Diretos no Navegador ou Postman
+URL
+Resultado esperado
+http://localhost:5063/procedimentos
+Lista os procedimentos da cl?nica.
+http://localhost:5063/profissionais
+Lista os profissionais.
+http://localhost:5063/clientes
+Lista os clientes cadastrados.
+http://localhost:5063/agendamentos
+Lista os agendamentos.
+http://localhost:5063/indicadores
+Mostra os indicadores usados pelo painel administrativo.
+
+20. Situa??o Atual do Projeto
+* O backend ASP.NET Core est? integrado ao PostgreSQL.
+* O front-end cadastra clientes e agendamentos reais.
+* A ?rea do cliente consulta agendamentos reais por e-mail.
+* O painel administrativo exibe indicadores e tabelas com dados do banco.
+* O sistema pode ser demonstrado usando VS Code, DBeaver, Postman e navegador.
+Dra. Nicolle Carvalho - Documentação técnica do projeto PIM III
+

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração | Dra. Nicolle Carvalho</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+    <div class="container nav-container">
+        <div class="logo">Dra. Nicolle Carvalho</div>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="servicos.html">Serviços</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <li><a href="area-cliente.html">Área do Cliente</a></li>
+                <li><a href="admin.html" class="active">Admin</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="page-banner">
+    <h1>Painel Administrativo</h1>
+</section>
+
+<main class="container admin-area">
+    <section class="admin-section">
+        <h2 class="section-title">Indicadores da Clínica</h2>
+        <div class="indicadores-grid">
+            <div class="indicador-card">
+                <span>Total de clientes</span>
+                <strong id="total-clientes">0</strong>
+            </div>
+            <div class="indicador-card">
+                <span>Total de agendamentos</span>
+                <strong id="total-agendamentos">0</strong>
+            </div>
+            <div class="indicador-card">
+                <span>Procedimentos ativos</span>
+                <strong id="total-procedimentos">0</strong>
+            </div>
+            <div class="indicador-card">
+                <span>Profissionais ativos</span>
+                <strong id="total-profissionais">0</strong>
+            </div>
+        </div>
+        <p class="admin-destaque" id="procedimento-mais-procurado">Procedimento mais procurado: carregando...</p>
+    </section>
+
+    <section class="admin-section">
+        <h2>Próximos agendamentos</h2>
+        <div class="table-wrapper">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Data e hora</th>
+                        <th>Cliente</th>
+                        <th>Procedimento</th>
+                        <th>Profissional</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-proximos"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="admin-section">
+        <h2>Clientes cadastrados</h2>
+        <div class="table-wrapper">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Telefone</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-clientes"></tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Dra. Nicolle Carvalho</p>
+    </div>
+</footer>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

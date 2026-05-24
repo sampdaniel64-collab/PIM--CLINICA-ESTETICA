@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Cliente | Dra. Nicolle Carvalho</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<a href="index.html#agendamento" class="float-btn">Agendar Agora</a>
+
+<header class="header">
+    <div class="container nav-container">
+        <div class="logo">Dra. Nicolle Carvalho</div>
+        <nav class="menu">
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="servicos.html">Serviços</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <li><a href="area-cliente.html" class="active">Área do Cliente</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="page-banner">
+    <h1>Minha Conta</h1>
+</section>
+
+<section class="container cliente-area">
+    <div class="login-box">
+        <h2>Login</h2>
+        <form class="form-login" id="form-login-cliente">
+            <input type="email" id="login-email" placeholder="E-mail cadastrado" required>
+            <input type="password" id="login-senha" placeholder="Senha" required>
+            <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+        <p class="demo-info">Use o e-mail e a senha cadastrados na pré-reserva.</p>
+        <p class="form-status" id="login-status" aria-live="polite"></p>
+    </div>
+
+    <div class="painel-cliente" style="display: none;">
+        <h2 id="cliente-saudacao">Olá</h2>
+        <div class="historico">
+            <h3>Meus agendamentos</h3>
+            <ul id="lista-agendamentos"></ul>
+            <a href="index.html#agendamento" class="btn-small">Solicitar novo agendamento</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>© 2026 Dra. Nicolle Carvalho</p>
+    </div>
+</footer>
+
+<script src="js/area-cliente.js"></script>
+</body>
+</html>
